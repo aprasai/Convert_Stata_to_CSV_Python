@@ -6,13 +6,13 @@ from fnmatch import fnmatch
 
 #function to get all the files with .DTA extension from a folder
 def get_list_of_files (directoryPath):
-    patternExcel1 = "*.DTA"
+    patternSTATA = "*.DTA"
     filesDTA = []
     counter = 0
     for path, subdirs, files in os.walk(directoryPath):
         for name in files:
             counter = counter + 1
-            if fnmatch(name, patternExcel1):
+            if fnmatch(name, patternSTATA):
                 filesDTA.append(os.path.join(path, name))
     return filesDTA
     
