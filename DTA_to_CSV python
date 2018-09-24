@@ -1,0 +1,27 @@
+#Importing necessary libraries
+import pandas as pd
+import numpy as np
+import os
+from fnmatch import fnmatch
+
+#function to get all the files with .DTA extension from a folder
+def get_list_of_files (directoryPath):
+    patternExcel1 = "*.DTA"
+    filesDTA = []
+    counter = 0
+    for path, subdirs, files in os.walk(directoryPath):
+        for name in files:
+            counter = counter + 1
+            if fnmatch(name, patternExcel1):
+                filesDTA.append(os.path.join(path, name))
+    return filesDTA
+    
+#Getting all the folders within a Directory
+directory = r'PATH'
+folders = [x[0] for x in os.walk(directory)] #gets all the folders including itself in the directory
+
+for i in range (1,len(folders)):
+    filename = get_list_of_files(folders[i])
+    fileCSV = 'NAME_'+str(i)+'.csv'
+    df = pd.read_stata(filename[0])
+    df.to_csv(fileCSV)
